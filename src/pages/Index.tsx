@@ -81,6 +81,7 @@ export default function Index() {
   const [activeSection, setActiveSection] = useState("home");
   const [priceRange, setPriceRange] = useState([50000, 500000]);
   const [hotelRating, setHotelRating] = useState([3]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -102,11 +103,42 @@ export default function Index() {
                 </button>
               ))}
             </nav>
-            <Button variant="outline" className="bg-accent text-accent-foreground hover:bg-accent/90 border-0">
-              <Icon name="Phone" size={18} className="mr-2" />
-              +7 (495) 123-45-67
-            </Button>
+            <div className="hidden md:block">
+              <Button variant="outline" className="bg-accent text-accent-foreground hover:bg-accent/90 border-0">
+                <Icon name="Phone" size={18} className="mr-2" />
+                +7 (495) 123-45-67
+              </Button>
+            </div>
+            <button
+              className="md:hidden text-primary-foreground"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <Icon name={mobileMenuOpen ? "X" : "Menu"} size={28} />
+            </button>
           </div>
+          
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 animate-fade-in">
+              <nav className="flex flex-col space-y-3">
+                {['Главная', 'Туры', 'Направления', 'О компании', 'Отзывы', 'Контакты', 'Спецпредложения'].map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => {
+                      setActiveSection(item.toLowerCase());
+                      setMobileMenuOpen(false);
+                    }}
+                    className="text-left text-base font-medium hover:text-accent transition-colors duration-200 py-2 border-b border-white/10"
+                  >
+                    {item}
+                  </button>
+                ))}
+                <Button variant="outline" className="bg-accent text-accent-foreground hover:bg-accent/90 border-0 w-full mt-2">
+                  <Icon name="Phone" size={18} className="mr-2" />
+                  +7 (495) 123-45-67
+                </Button>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
