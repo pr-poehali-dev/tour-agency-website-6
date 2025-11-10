@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Icon from "@/components/ui/icon";
 import { Badge } from "@/components/ui/badge";
+import { Slider } from "@/components/ui/slider";
 import { useState } from "react";
 
 const tourOperators = [
@@ -78,6 +79,8 @@ export default function Index() {
   const [operator, setOperator] = useState("Все операторы");
   const [destination, setDestination] = useState("");
   const [activeSection, setActiveSection] = useState("home");
+  const [priceRange, setPriceRange] = useState([50000, 500000]);
+  const [hotelRating, setHotelRating] = useState([3]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -170,6 +173,56 @@ export default function Index() {
                       <SelectItem value="14">14 ночей</SelectItem>
                     </SelectContent>
                   </Select>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 p-6 bg-muted/50 rounded-lg">
+                <div>
+                  <label className="block text-sm font-medium mb-3 text-foreground flex items-center justify-between">
+                    <span className="flex items-center">
+                      <Icon name="Wallet" size={18} className="mr-2 text-accent" />
+                      Бюджет поездки
+                    </span>
+                    <span className="text-accent font-semibold">
+                      {priceRange[0].toLocaleString()} - {priceRange[1].toLocaleString()} ₽
+                    </span>
+                  </label>
+                  <Slider 
+                    value={priceRange}
+                    onValueChange={setPriceRange}
+                    min={50000}
+                    max={1000000}
+                    step={10000}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                    <span>50 000 ₽</span>
+                    <span>1 000 000 ₽</span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-3 text-foreground flex items-center justify-between">
+                    <span className="flex items-center">
+                      <Icon name="Star" size={18} className="mr-2 text-accent" />
+                      Рейтинг отеля
+                    </span>
+                    <span className="text-accent font-semibold flex items-center">
+                      {hotelRating[0]}+ 
+                      <Icon name="Star" size={16} className="ml-1 fill-accent text-accent" />
+                    </span>
+                  </label>
+                  <Slider 
+                    value={hotelRating}
+                    onValueChange={setHotelRating}
+                    min={3}
+                    max={5}
+                    step={1}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                    <span>3 звезды</span>
+                    <span>5 звёзд</span>
+                  </div>
                 </div>
               </div>
               <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg py-6">
