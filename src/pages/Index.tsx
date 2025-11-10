@@ -225,6 +225,25 @@ export default function Index() {
                   </div>
                 </div>
               </div>
+              
+              <div className="mb-6">
+                <p className="text-sm font-medium mb-3 text-muted-foreground">Популярные направления:</p>
+                <div className="flex flex-wrap gap-2">
+                  {['Мальдивы', 'ОАЭ', 'Таиланд', 'Бали', 'Сейшелы', 'Греция', 'Италия', 'Франция'].map((place) => (
+                    <Button
+                      key={place}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setDestination(place)}
+                      className="hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-all"
+                    >
+                      <Icon name="MapPin" size={14} className="mr-1" />
+                      {place}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
               <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg py-6">
                 <Icon name="Search" size={20} className="mr-2" />
                 Найти туры
